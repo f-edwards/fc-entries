@@ -123,6 +123,67 @@ for(i in 1:m) {
 ent.results <- mi.meld(q = b.out.1, se = se.out.1)
 inst.results <- mi.meld(q=b.out.2, se=se.out.2)
 
+#### Combine results over estimated models for visualization 
+#### of estimated random state, year intercepts for both entries and institutionalization models
+s.b.out<-y.b.out<-NULL
+s.se.out<-y.se.out<-NULL
+for(i in 1:m) {
+	s.b.out <- rbind(s.b.out, t(ranef(ent.scale[[i]])$stname))
+	y.b.out <- rbind(y.b.out, t(ranef(ent.scale[[i]])$year))
+	s.se.out<-rbind(s.se.out, t(se.coef(ent.scale[[i]])$stname))
+	y.se.out<-rbind(y.se.out, t(se.coef(ent.scale[[i]])$year))
+}
+
+state.ranef.ent <- mi.meld(q = s.b.out, se = s.se.out)
+year.ranef.ent <- mi.meld(q= y.b.out, se= y.se.out)
+
+s.b.out<-y.b.out<-NULL
+s.se.out<-y.se.out<-NULL
+for(i in 1:m) {
+	s.b.out <- rbind(s.b.out, t(ranef(inst.scale[[i]])$stname))
+	y.b.out <- rbind(y.b.out, t(ranef(inst.scale[[i]])$year))
+	s.se.out<-rbind(s.se.out, t(se.coef(inst.scale[[i]])$stname))
+	y.se.out<-rbind(y.se.out, t(se.coef(inst.scale[[i]])$year))
+}
+
+state.ranef.inst <- mi.meld(q = s.b.out, se = s.se.out)
+year.ranef.inst <- mi.meld(q= y.b.out, se= y.se.out)
+
+s.tab<-as.data.frame(cbind(t(state.ranef.ent$q.mi), t(state.ranef.ent$se.mi),
+	t(state.ranef.inst$q.mi), t(state.ranef.inst$se.mi)))
+names(s.tab)<-c("Entries", "SE", "Institutionalization", "SE")
+s.table<-xtable(s.tab)
+print(s.table, type="html", file="re-state.html")
+
+y.tab<-as.data.frame(cbind(t(year.ranef.ent$q.mi), t(year.ranef.ent$se.mi),
+	t(year.ranef.inst$q.mi), t(year.ranef.inst$se.mi)))
+names(y.tab)<-c("Entries", "SE", "Institutionalization", "SE")
+y.table<-xtable(y.tab)
+print(y.table, type="html", file="re-year.html")
+
+# hist(s.tab$Entries, main="State Random Intercepts, Entry Models",
+# 	xlab="Estimated State Intercept")
+# hist(s.tab$Institutionalization, main="State Random Intercepts, Institutionalization Models",
+# 	xlab="Estimated State Intercept")
+# hist(y.tab$Entries, main="Year Random Intercepts, Entry Models",
+# 	xlab="Estimated Year Intercept")
+# hist(y.tab$Institutionalization, main="Year Random Intercepts, Institutionalization Models",
+# 	xlab="Estimated Year Intercept")
+
+h.s.ent<- qplot(s.tab$Entries, binwidth=0.1, main="Entry Models",
+	xlab="Estimated State Intercept")+
+	theme_classic()
+h.s.inst<- qplot(s.tab$Institutionalization, binwidth=0.1, main="Institutionalization Models",
+	xlab="Estimated State Intercept")+
+	theme_classic()
+h.y.ent<- qplot(y.tab$Entries, binwidth=0.01, main="Entry Models",
+	xlab="Estimated Year Intercept")+
+	theme_classic()
+h.y.inst<- qplot(y.tab$Institutionalization, binwidth=0.01,  main="Institutionalization Models",
+	xlab="Estimated Year Intercept")+
+	theme_classic()
+
+multiplot(h.s.ent, h.s.inst, h.y.ent, h.y.inst, cols=2)
 ### For html file output of regression results
 # t.out<-stargazer(list(ent.scale[[1]], inst.scale[[1]]), 
 # 	coef=list(t(ent.results[[1]]), t(inst.results[[1]])), 
