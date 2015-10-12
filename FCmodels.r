@@ -170,20 +170,22 @@ print(y.table, type="html", file="re-year.html")
 # hist(y.tab$Institutionalization, main="Year Random Intercepts, Institutionalization Models",
 # 	xlab="Estimated Year Intercept")
 
-h.s.ent<- qplot(s.tab$Entries, binwidth=0.1, main="Entry Models",
+h.s.ent<- qplot(s.tab$Entries, binwidth=0.12, main="Entry Models",
 	xlab="Estimated State Intercept")+
 	theme_classic()
-h.s.inst<- qplot(s.tab$Institutionalization, binwidth=0.1, main="Institutionalization Models",
+h.s.inst<- qplot(s.tab$Institutionalization, binwidth=0.12, main="Institutionalization Models",
 	xlab="Estimated State Intercept")+
 	theme_classic()
 h.y.ent<- qplot(y.tab$Entries, binwidth=0.01, main="Entry Models",
 	xlab="Estimated Year Intercept")+
 	theme_classic()
-h.y.inst<- qplot(y.tab$Institutionalization, binwidth=0.01,  main="Institutionalization Models",
+h.y.inst<- qplot(y.tab$Institutionalization, =0.01,  main="Institutionalization Models",
 	xlab="Estimated Year Intercept")+
 	theme_classic()
 
-multiplot(h.s.ent, h.s.inst, h.y.ent, h.y.inst, cols=2)
+png("re.plots.png")
+	multiplot(h.s.ent, h.s.inst, h.y.ent, h.y.inst, cols=2)
+dev.off()
 ### For html file output of regression results
 # t.out<-stargazer(list(ent.scale[[1]], inst.scale[[1]]), 
 # 	coef=list(t(ent.results[[1]]), t(inst.results[[1]])), 
