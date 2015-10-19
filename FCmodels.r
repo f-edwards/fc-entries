@@ -94,7 +94,7 @@ for(i in (1:m)){
 		(1|stname)+(1|year)+(1|obs_n), offset=log(child),  
 		data=fc.int$imputations[[i]],
 		family=poisson)
-	
+
 	inst.scale[[i]]<-glmer(pl.inst~scale(unemprt)+scale(childnot2par)+
 		scale(food.insec)+scale(chpovrt)+scale(LessHS)+
 		scale(gsppercap)+
@@ -161,31 +161,17 @@ names(y.tab)<-c("Entries", "SE", "Institutionalization", "SE")
 y.table<-xtable(y.tab)
 print(y.table, type="html", file="re-year.html")
 
-# hist(s.tab$Entries, main="State Random Intercepts, Entry Models",
-# 	xlab="Estimated State Intercept")
-# hist(s.tab$Institutionalization, main="State Random Intercepts, Institutionalization Models",
-# 	xlab="Estimated State Intercept")
-# hist(y.tab$Entries, main="Year Random Intercepts, Entry Models",
-# 	xlab="Estimated Year Intercept")
-# hist(y.tab$Institutionalization, main="Year Random Intercepts, Institutionalization Models",
-# 	xlab="Estimated Year Intercept")
+hist(s.tab$Entries, main="State Random Intercepts, Entry Models",
+	xlab="Estimated State Intercept")
+hist(s.tab$Institutionalization, main="State Random Intercepts, Institutionalization Models",
+	xlab="Estimated State Intercept")
+hist(y.tab$Entries, main="Year Random Intercepts, Entry Models",
+	xlab="Estimated Year Intercept")
+options(scipen=9)
+hist(y.tab$Institutionalization, main="Year Random Intercepts, Institutionalization Models",
+	xlab="Estimated Year Intercept", breaks=4)
 
-h.s.ent<- qplot(s.tab$Entries, binwidth=0.12, main="Entry Models",
-	xlab="Estimated State Intercept")+
-	theme_classic()
-h.s.inst<- qplot(s.tab$Institutionalization, binwidth=0.12, main="Institutionalization Models",
-	xlab="Estimated State Intercept")+
-	theme_classic()
-h.y.ent<- qplot(y.tab$Entries, binwidth=0.01, main="Entry Models",
-	xlab="Estimated Year Intercept")+
-	theme_classic()
-h.y.inst<- qplot(y.tab$Institutionalization, =0.01,  main="Institutionalization Models",
-	xlab="Estimated Year Intercept")+
-	theme_classic()
 
-png("re.plots.png")
-	multiplot(h.s.ent, h.s.inst, h.y.ent, h.y.inst, cols=2)
-dev.off()
 ### For html file output of regression results
 # t.out<-stargazer(list(ent.scale[[1]], inst.scale[[1]]), 
 # 	coef=list(t(ent.results[[1]]), t(inst.results[[1]])), 

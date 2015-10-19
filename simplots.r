@@ -124,7 +124,8 @@ est.1<-cfChange(est.1, "scale(tanf.incl):scale(welfare.pc)", x=0, scen=(1:n.s.t)
 
 
 mean.e<-sim.pe(est.1$x, ent.scale[[1]])
-### high welf scen for point est - fc entry
+
+### high welf scen for point estimates - fc entry
 est.hwe<-cfChange(est.1, "scale(tanf.adeq)", x=1, scen=(1:n.s.t))
 est.hwe<-cfChange(est.hwe, "scale(snap.incl)", x=1, scen=(1:n.s.t))
 est.hwe<-cfChange(est.hwe, "scale(medicaid.incl)", x=1, scen=(1:n.s.t))
@@ -153,6 +154,7 @@ est.lpe<-cfChange(est.lpe, "scale(police.pc)", x=-1, scen=(1:n.s.t))
 lpe<-sim.pe(est.lpe$x, ent.scale[[1]])
 
 mean.i<-sim.pe(est.1$x, inst.scale[[1]])
+
 ### high welf scen - inst
 est.hwi<-cfChange(est.1, "scale(tanf.adeq)", x=1, scen=(1:n.s.t))
 est.hwi<-cfChange(est.hwi, "scale(snap.incl)", x=1, scen=(1:n.s.t))
@@ -162,11 +164,26 @@ est.hwi<-cfChange(est.hwi, "scale(welfare.pc)", x=1, scen=(1:n.s.t))
 est.hwi<-cfChange(est.hwi, "scale(tanf.incl):scale(welfare.pc)", x=1, scen=(1:n.s.t))
 hwi<-sim.pe(est.hwi$x, inst.scale[[1]])
 
+### low welf scen - inst
+est.lwi<-cfChange(est.1, "scale(tanf.adeq)", x=-1, scen=(1:n.s.t))
+est.lwi<-cfChange(est.lwi, "scale(snap.incl)", x=-1, scen=(1:n.s.t))
+est.lwi<-cfChange(est.lwi, "scale(medicaid.incl)", x=-1, scen=(1:n.s.t))
+est.lwi<-cfChange(est.lwi, "scale(tanf.incl)", x=-1, scen=(1:n.s.t))
+est.lwi<-cfChange(est.lwi, "scale(welfare.pc)", x=-1, scen=(1:n.s.t))
+est.lwi<-cfChange(est.lwi, "scale(tanf.incl):scale(welfare.pc)", x=-1, scen=(1:n.s.t))
+lwi<-sim.pe(est.lwi$x, inst.scale[[1]])
+
 ### high pun scen - inst
 est.hpi<-cfChange(est.1, "scale(incarrt)", x=1)
 est.hpi<-cfChange(est.hpi, "scale(death.rt)", x=1)
 est.hpi<-cfChange(est.hpi, "scale(police.pc)", x=1)
 hpi<-sim.pe(est.hpi$x, inst.scale[[1]])
+
+### low pun scen - inst
+est.lpi<-cfChange(est.1, "scale(incarrt)", x=-1)
+est.lpi<-cfChange(est.lpi, "scale(death.rt)", x=-1)
+est.lpi<-cfChange(est.lpi, "scale(police.pc)", x=-1)
+lpi<-sim.pe(est.lpi$x, inst.scale[[1]])
 
 
 for (i in 1:n.s.t){
