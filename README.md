@@ -15,9 +15,9 @@ Political ideology data (from Berry, Rinquist, Fording, and Hanson 1998) can be 
 
 The National Prisoner Statistics are available to researchers through [ICPSR] (http://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/34540), as are the [FBI's Uniform Crime Reports](http://www.icpsr.umich.edu/icpsrweb/ICPSR/series/57/studies?sortBy=7&archive=ICPSR&q=allocated+state&searchSource=revise). 
 
-Data on social welfare policy can be obtained from the [University of Kentucky Center for Poverty Research)[http://www.ukcpr.org/data].
+Data on social welfare policy can be obtained from the [University of Kentucky Center for Poverty Research](http://www.ukcpr.org/data).
 
-Data on state and local government payrolls are obtainable from the [U.S. Census] (https://www.census.gov//govs/apes/).
+Data on state and local government payrolls are obtainable from the [U.S. Census Government Employment and Payroll series] (https://www.census.gov/govs/apes/).
 
 Death sentences issued by state courts are compiled by [The Death Penalty Information Center](http://www.deathpenaltyinfo.org/death-sentences-united-states-1977-2008) from Bureau of Justice annual reports. 
 
