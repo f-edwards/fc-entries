@@ -161,16 +161,23 @@ names(y.tab)<-c("Entries", "SE", "Institutionalization", "SE")
 y.table<-xtable(y.tab)
 print(y.table, type="html", file="re-year.html")
 
+png("s-ent.png")
 hist(s.tab$Entries, main="State Random Intercepts, Entry Models",
 	xlab="Estimated State Intercept")
+dev.off()
+png("s-inst.png")
 hist(s.tab$Institutionalization, main="State Random Intercepts, Institutionalization Models",
 	xlab="Estimated State Intercept")
+dev.off()
+png("y-ent.png")
 hist(y.tab$Entries, main="Year Random Intercepts, Entry Models",
 	xlab="Estimated Year Intercept")
+dev.off()
 options(scipen=9)
+png("y-inst.png")
 hist(y.tab$Institutionalization, main="Year Random Intercepts, Institutionalization Models",
 	xlab="Estimated Year Intercept", breaks=4)
-
+dev.off()
 
 ### For html file output of regression results
 # t.out<-stargazer(list(ent.scale[[1]], inst.scale[[1]]), 
@@ -245,6 +252,28 @@ for(i in 1:m) {
 
 ent.rob.results <- mi.meld(q = b.out.3, se = se.out.4)
 cl.results <- mi.meld(q=b.out.4, se=se.out.4)
+
+### compute intraclass correlations for states and years
+### as var(ranef)/(\sum var(ranefs) + var(residual))
+icc.s.ent<-icc.y.ent<-icc.s.inst<-icc.y.inst<-NULL
+for(i in 1:m){
+	v.RE.st<-summary(ent.scale[[i]])$varcor$stname[1]
+	v.RE.y<-summary(ent.scale[[i]])$varcor$year[1]
+	v.RE.i<-summary(ent.scale[[i]])$varcor$obs_n[1]
+	v.res<-var(resid(ent.scale[[i]]))
+	icc.s.ent[i]<-v.RE.st/(v.RE.st+v.RE.y+v.RE.i+v.res)
+	icc.y.ent[i]<-v.RE.y/(v.RE.st+v.RE.y+v.RE.i+v.res)
+}
+
+for(i in 1:m){
+	v.RE.st<-summary(inst.scale[[i]])$varcor$stname[1]
+	v.RE.y<-summary(inst.scale[[i]])$varcor$year[1]
+	v.RE.i<-summary(inst.scale[[i]])$varcor$obs_n[1]
+	v.res<-var(resid(inst.scale[[i]]))
+	icc.s.inst[i]<-v.RE.st/(v.RE.st+v.RE.y+v.RE.i+v.res)
+	icc.y.inst[i]<-v.RE.y/(v.RE.st+v.RE.y+v.RE.i+v.res)
+}
+
 
 ### For html file output of results
 # stargazer(list(ent.rob[[1]], cl.rob[[1]]), 
