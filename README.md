@@ -1,5 +1,5 @@
 # fc-entries
-This project contains the code necessary to perform the analyses reported in a forthcoming paper.  This repository transforms individual-year level data from the Adoption and Foster Care Analysis and Reporting System (AFCARS) into state-year panel data that measure variation in state foster care systems between years.  It also contains scripts to conduct the analyses and visualizations reported in the paper.
+This project contains the code necessary to perform the analyses reported in "Saving Children and Controling Families: Punishment Redistribution and Child Protection", forthcoming in the American Sociological Review.  This repository transforms individual-year level data from the Adoption and Foster Care Analysis and Reporting System (AFCARS) into state-year panel data that measure variation in state foster care systems between years.  It also contains scripts to conduct the analyses and visualizations reported in the paper.
 
 You must run CensusTransform.r and FC_AFCARS_indTOstate.r before beginning the analysis to produce state-year panel .csv files.  The main analysis is produced using FCmodels.r.  To produce maps and simulation plots, run FCMapsFacet.r and simplots.r in the same R session in which you executed FCmodels.r.
 
