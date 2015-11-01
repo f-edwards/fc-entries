@@ -6,7 +6,7 @@ You must run CensusTransform.r and FC_AFCARS_indTOstate.r before beginning the a
 ## Data sources
 The data used for this study are freely available to the research community, but may require data use agreements with archives to obtain them.
 
-This analysis depends on a number of data sources.  First, all foster care data are provided by the [National Data Archive on Child Abuse and Neglect] (http://www.ndacan.cornell.edu/), and are available for academic research by request. 
+This analysis depends on a number of data sources.  First, all foster care data are provided by the [National Data Archive on Child Abuse and Neglect] (http://www.ndacan.cornell.edu/), and are available for academic research by request. This study relied on AFCARS Foster Care file data from 2000 - 2011. 
 
 Population data can be obtained from [IPUMS-USA] (https://usa.ipums.org/usa/).  The file used in this analysis contained the following samples: [2000 1%, 2001 ACS, 2002 ACS, 2003 ACS, 2004 ACS, 2005 ACS, 2006 ACS, 2007 ACS 3yr, 2008 ACS 3yr, 2009 ACS 3yr, 2010 ACS 3yr, 2011 ACS 3yr] and the following variables: [YEAR, DATANUM, SERIAL, HHWT, STATEFIP, GQ, RENTGRS,
 PERNUM, PERWT, NCHILD, MOMLOC, POPLOC, STEPPOP, RELATE, RELATED, SEX, AGE, RACE, RACED, HISPAN,HISPAND, EDUC, EDUCD, EMPSTAT, EMPSTATD, LABFORCE, POVERTY, GCHOUSE]
