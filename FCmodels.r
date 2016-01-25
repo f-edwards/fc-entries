@@ -111,6 +111,7 @@ for(i in (1:m)){
 }
 
 ### Combine results over estimated models
+
 b.out.1<-b.out.2<-NULL
 se.out.1<-se.out.2<-NULL
 for(i in 1:m) {
@@ -124,7 +125,9 @@ ent.results <- mi.meld(q = b.out.1, se = se.out.1)
 inst.results <- mi.meld(q=b.out.2, se=se.out.2)
 
 #### Combine results over estimated models for visualization 
-#### of estimated random state, year intercepts for both entries and institutionalization models
+#### of estimated random state, year intercepts for both entries 
+### and institutionalization models
+
 s.b.out<-y.b.out<-NULL
 s.se.out<-y.se.out<-NULL
 for(i in 1:m) {
@@ -153,31 +156,13 @@ s.tab<-as.data.frame(cbind(t(state.ranef.ent$q.mi), t(state.ranef.ent$se.mi),
 	t(state.ranef.inst$q.mi), t(state.ranef.inst$se.mi)))
 names(s.tab)<-c("Entries", "SE", "Institutionalization", "SE")
 s.table<-xtable(s.tab)
-print(s.table, type="html", file="re-state.html")
+# print(s.table, type="html", file="re-state.html")
 
 y.tab<-as.data.frame(cbind(t(year.ranef.ent$q.mi), t(year.ranef.ent$se.mi),
 	t(year.ranef.inst$q.mi), t(year.ranef.inst$se.mi)))
 names(y.tab)<-c("Entries", "SE", "Institutionalization", "SE")
 y.table<-xtable(y.tab)
-print(y.table, type="html", file="re-year.html")
-
-png("s-ent.png")
-hist(s.tab$Entries, main="State Random Intercepts, Entry Models",
-	xlab="Estimated State Intercept")
-dev.off()
-png("s-inst.png")
-hist(s.tab$Institutionalization, main="State Random Intercepts, Institutionalization Models",
-	xlab="Estimated State Intercept")
-dev.off()
-png("y-ent.png")
-hist(y.tab$Entries, main="Year Random Intercepts, Entry Models",
-	xlab="Estimated Year Intercept")
-dev.off()
-options(scipen=9)
-png("y-inst.png")
-hist(y.tab$Institutionalization, main="Year Random Intercepts, Institutionalization Models",
-	xlab="Estimated Year Intercept", breaks=4)
-dev.off()
+# print(y.table, type="html", file="re-year.html")
 
 ### For html file output of regression results
 # t.out<-stargazer(list(ent.scale[[1]], inst.scale[[1]]), 
@@ -197,7 +182,8 @@ dev.off()
 
 
 ### Robustness checks in appendix Table 1 
-### Drop states with severe measurement error on parental incarceration as foster care entry cause
+### Drop states with severe measurement error on parental 
+### incarceration as foster care entry cause
 drops<-c("NY", "IL", "WY", "ID")
 fc.drop<-NULL
 for(i in 1:5){
@@ -255,24 +241,24 @@ cl.results <- mi.meld(q=b.out.4, se=se.out.4)
 
 ### compute intraclass correlations for states and years
 ### as var(ranef)/(\sum var(ranefs) + var(residual))
-icc.s.ent<-icc.y.ent<-icc.s.inst<-icc.y.inst<-NULL
-for(i in 1:m){
-	v.RE.st<-summary(ent.scale[[i]])$varcor$stname[1]
-	v.RE.y<-summary(ent.scale[[i]])$varcor$year[1]
-	v.RE.i<-summary(ent.scale[[i]])$varcor$obs_n[1]
-	v.res<-var(resid(ent.scale[[i]]))
-	icc.s.ent[i]<-v.RE.st/(v.RE.st+v.RE.y+v.RE.i+v.res)
-	icc.y.ent[i]<-v.RE.y/(v.RE.st+v.RE.y+v.RE.i+v.res)
-}
-
-for(i in 1:m){
-	v.RE.st<-summary(inst.scale[[i]])$varcor$stname[1]
-	v.RE.y<-summary(inst.scale[[i]])$varcor$year[1]
-	v.RE.i<-summary(inst.scale[[i]])$varcor$obs_n[1]
-	v.res<-var(resid(inst.scale[[i]]))
-	icc.s.inst[i]<-v.RE.st/(v.RE.st+v.RE.y+v.RE.i+v.res)
-	icc.y.inst[i]<-v.RE.y/(v.RE.st+v.RE.y+v.RE.i+v.res)
-}
+# icc.s.ent<-icc.y.ent<-icc.s.inst<-icc.y.inst<-NULL
+# for(i in 1:m){
+# 	v.RE.st<-summary(ent.scale[[i]])$varcor$stname[1]
+# 	v.RE.y<-summary(ent.scale[[i]])$varcor$year[1]
+# 	v.RE.i<-summary(ent.scale[[i]])$varcor$obs_n[1]
+# 	v.res<-var(resid(ent.scale[[i]]))
+# 	icc.s.ent[i]<-v.RE.st/(v.RE.st+v.RE.y+v.RE.i+v.res)
+# 	icc.y.ent[i]<-v.RE.y/(v.RE.st+v.RE.y+v.RE.i+v.res)
+# }
+# 
+# for(i in 1:m){
+# 	v.RE.st<-summary(inst.scale[[i]])$varcor$stname[1]
+# 	v.RE.y<-summary(inst.scale[[i]])$varcor$year[1]
+# 	v.RE.i<-summary(inst.scale[[i]])$varcor$obs_n[1]
+# 	v.res<-var(resid(inst.scale[[i]]))
+# 	icc.s.inst[i]<-v.RE.st/(v.RE.st+v.RE.y+v.RE.i+v.res)
+# 	icc.y.inst[i]<-v.RE.y/(v.RE.st+v.RE.y+v.RE.i+v.res)
+# }
 
 
 ### For html file output of results
