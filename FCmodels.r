@@ -277,4 +277,18 @@ cl.results <- mi.meld(q=b.out.4, se=se.out.4)
 #  		"Incarceration rate", "Death Sentences", "Police per cap", "TANFenroll*WelfWorkers",
 #  		 "Intercept"))
 
+#### another robustness check - longitudinal model with national time trend, state-level random slopes
+# inst.long<-glmer(pl.inst~scale(unemprt)+scale(childnot2par)+
+#                         scale(food.insec)+scale(chpovrt)+scale(LessHS)+
+#                         scale(gsppercap)+
+#                         scale(ideo)+scale(crime.pc)+scale(pctblk)+
+#                         scale(tanf.adeq)+scale(snap.incl)+
+#                         scale(medicaid.incl)+
+#                         scale(tanf.incl)*scale(welfare.pc)+
+#                         scale(incarrt)+
+#                         scale(death.rt)+
+#                         scale(police.pc)+I(year-2002)+
+#                         (I(year-2002)|stname)+(1|obs_n), offset=log(cl),  
+#                       data=fc.int$imputations[[1]],
+#                       family=poisson)
 
