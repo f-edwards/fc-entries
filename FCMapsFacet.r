@@ -131,7 +131,42 @@ print(MapPlot)
 
 ggsave(plot = MapPlot, "PovEntMap.pdf", h = 6, w = 8)
 
+### For solo map of entry rates
 
+n<-nrow(fc10)
+fclong<-with(fc10, data.frame(region=rep(tolower(fc10$statename), 1),
+                              q=as.factor(c(returnquant(entrt))),
+                              c=c(rep("Foster Care Entries per Child Population", n))
+))
+fclong$c<-factor(fclong$c, levels=c("Foster Care Entries per Child Population"))
+choro<-merge(states, fclong, by="region")
+choro <- choro[order(choro$order), ]
 
+MapPlot <- ggplot(choro,
+                  aes(x = long, y = lat, group = group, fill = q))
+MapPlot <- MapPlot + geom_polygon(aes(fill = q), colour = "gray20", size = 0.1) +
+  scale_fill_brewer(palette = "Blues",
+                    name="Average Entries\nper 1,000 Children\n2002-2011", labels=c("1.7-2.9", "2.9-4.0 ", "4.0-4.8 ", "4.8-5.8 ", "5.8-8.7"))
+
+MapPlot <- MapPlot + coord_map(project="albers", at0 = 45.5, lat1 = 29.5)  # Changes the projection to something other than Mercator.
+
+MapPlot <- MapPlot +  theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank(),
+                            panel.border = element_blank(), panel.background=element_blank())+
+  scale_y_continuous(name="", breaks=NULL)+
+  scale_x_continuous(name="", breaks=NULL)+
+#   theme(legend.title=element_text(size=10))+
+#   theme(legend.text=element_text(size=10))+
+  theme(legend.position="right")
+  # theme(legend.key.size= unit(0.3, "cm"))
+
+MapPlot<- MapPlot + theme(strip.background=element_blank(), 
+                          strip.text.x=element_text(size=10),
+                          strip.text.y=element_blank())
+
+MapPlot <- MapPlot + xlab(NULL) + ylab(NULL)
+
+print(MapPlot)
+
+ggsave(plot = MapPlot, "EntMap.pdf", h = 6, w = 8)
 
 
